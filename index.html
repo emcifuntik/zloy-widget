@@ -9,6 +9,15 @@
 <body>
     <button id="b">Apply</button>
     <script type="text/javascript">
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
         VK.init(function() {
             
         }, function() {
@@ -20,7 +29,15 @@
             VK.callMethod("showGroupSettingsBox", 64);
             VK.callMethod('showAppWidgetPreviewBox', 'text', 'return {"title": "Цитата","text": "Текст цитаты"};');
         };
-        console.log(window.location);
+        var game = getParameterByName('hash', window.location.href);
+        if(game.length > 0) {
+            if(game == 'rust') {
+                window.location = 'steam://connect/65.52.68.175:28015';   
+            }
+            else if(game == 'mcpe') {
+                window.location = 'minecraft:?addExternalServer=Злой Геймер|65.52.68.175:19132';
+            }
+        }
     </script>
 </body>
 
